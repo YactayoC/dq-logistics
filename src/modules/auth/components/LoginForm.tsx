@@ -13,6 +13,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -20,12 +21,13 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export default function LoginForm() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("empleado@dq-logistics.com");
+    const [password, setPassword] = useState("Empleado123");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -46,8 +48,9 @@ export default function LoginForm() {
                 return;
             }
 
-            // Provisional: cambiar a router.push("/dashboard") cuando exista el dashboard
             setSuccess(true);
+            router.push("/dashboard");
+            router.refresh();
         } catch {
             setError("Error de conexión. Intenta nuevamente.");
         } finally {
